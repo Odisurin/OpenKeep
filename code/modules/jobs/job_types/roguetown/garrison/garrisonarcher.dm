@@ -25,6 +25,8 @@
 	give_bank_account = 30
 	min_pq = -4
 
+	cmode_music = 'sound/music/combat_guard.ogg'
+
 /datum/outfit/job/roguetown/watchman
 	name = "Garrison Archer"
 	jobtype = /datum/job/roguetown/watchman
@@ -57,6 +59,7 @@
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/swords, pick(0,1,1), TRUE) // For rapier use
 		H.mind.adjust_skillrank(/datum/skill/craft/crafting, pick(1,1,2), TRUE)
 		H.mind.adjust_skillrank(/datum/skill/craft/tanning, pick(1,1,2), TRUE)

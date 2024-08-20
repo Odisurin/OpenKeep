@@ -84,23 +84,25 @@ GLOBAL_LIST_INIT(garrison_positions, list(
 GLOBAL_LIST_INIT(church_positions, list(
 	"Priest",
 	"Acolyte",
-	"Puritan",
+	"Inquisitor",
 	"Confessor",
-	"Templar"
+	"Templar",
+	"Adept"
 	))
 
 GLOBAL_LIST_INIT(serf_positions, list(
-	"Barkeep",
+	"Innkeep",
 	"Armorer",
 	"Weaponsmith",
 	"Tailor",
 	"Alchemist",
 	"Mason",
-	"Scribe"
+	"Scribe",
 	))
 
 GLOBAL_LIST_INIT(peasant_positions, list(
 	"Soilson",
+	"Stevedore",
 	"Butcher",
 	"Cook",
 	"Gravedigger",
@@ -113,7 +115,6 @@ GLOBAL_LIST_INIT(peasant_positions, list(
 	"Adventurer",
 	"Towner",
 	"Pilgrim",
-	"Grabber",
 	"Mercenary",
 	"Niteman",
 	"Nitemaiden",

@@ -7,14 +7,14 @@
 	antag_hud_name = "assassin"
 	show_name_in_check_antagonists = TRUE
 	confess_lines = list(
-		"My creed is blood!",
-		"The dagger told me who to cut!",
-		"Death is my devotion!",
-		"The Dark Sun guides my hand!",
+		"MY CREED IS BLOOD!",
+		"THE DAGGER TOLD ME WHO TO CUT!",
+		"DEATH IS MY DEVOTION!",
+		"THE DARK SUN GUIDES MY HAND!",
 	)
 
 /datum/antagonist/assassin/on_gain()
-	owner.current.cmode_music = 'sound/music/combatdark.ogg'
+	owner.current.cmode_music = 'sound/music/combat_assassin.ogg'
 	if(owner.current.job != "Drifter") // This code only runs if the assassin is assigned midround and is not a drifter.
 		owner.current.patron = GLOB.patronlist[/datum/patron/inhumen/graggar]
 		ADD_TRAIT(owner.current, TRAIT_ASSASSIN, TRAIT_GENERIC)

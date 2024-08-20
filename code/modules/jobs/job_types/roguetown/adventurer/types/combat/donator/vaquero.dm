@@ -6,6 +6,7 @@
 	allowed_races = list("Tiefling")
 	outfit = /datum/outfit/job/roguetown/adventurer/vaquero
 	horse = /mob/living/simple_animal/hostile/retaliate/rogue/saigabuck/tame/saddled
+	cmode_music = 'sound/music/combat_vaquero.ogg'
 	category_tags = list(CTAG_ADVENTURER)
 	min_pq = 1
 	pickprob = 50
@@ -28,6 +29,7 @@
 	H.mind.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 1, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/stealing, 1, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 1, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/music, rand(1,2), TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
 	head = /obj/item/clothing/head/roguetown/bardhat

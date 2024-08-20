@@ -124,7 +124,7 @@
 	wbalance = 1
 	sellprice = 15
 
-/obj/item/rogueweapon/huntingknife/cleaver/getonmobprop(tag)
+/obj/item/rogueweapon/huntingknife/cleaver/combat/getonmobprop(tag)
 	. = ..()
 	if(tag)
 		switch(tag)
@@ -159,13 +159,14 @@
 	desc = "A dagger of refined steel, and even more refined appearance."
 
 /obj/item/rogueweapon/huntingknife/idagger/silver
-	name = "dagger"
+	name = "silver dagger"
 	desc = "A dagger made of fine silver, the bane of the undead."
-	force = 12
+	force = 13 // .9 of steel
 	icon_state = "sildagger"
 	smeltresult = null
-	sellprice = 50
-	smeltresult = /obj/item/ingot/silver
+	max_blade_int = 112 // .8 of steel
+	max_integrity = 240 // .8 of steel
+	sellprice = 45
 	var/last_used = 0
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/pickup(mob/user)
@@ -250,6 +251,12 @@
 				s_user.Paralyze(10)
 				to_chat(s_user, "<font color='red'> The silver weapon fails!</font>")
 				H.visible_message(H, "<span class='userdanger'>This feeble metal can't hurt me, I HAVE TRANSCENDED!</span>")
+		return
+	//I hate that i have to add a unique line of this code to EVERY silver weapon because they dont share a universal unique damage. -IP
+	//if is non carbon undead burn the fuck.
+	if((target.mob_biotypes & MOB_UNDEAD))
+		target.adjustFireLoss(25)
+		return
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/profane
 	name = "profane dagger"

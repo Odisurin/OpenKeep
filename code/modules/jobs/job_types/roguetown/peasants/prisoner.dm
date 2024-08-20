@@ -25,6 +25,8 @@
 	can_random = FALSE
 	bypass_lastclass = TRUE
 
+	cmode_music = 'sound/music/combat_bum.ogg'
+
 /datum/outfit/job/roguetown/prisoner/pre_equip(mob/living/carbon/human/H)
 	..()
 	pants = /obj/item/clothing/under/roguetown/loincloth/brown
@@ -43,6 +45,7 @@
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 2, TRUE) // given Noble trait it makes no sense they were illiterate. N.
 		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/riding, 1, TRUE) // per suggestion. N.
 		H.change_stat("strength", -1) // Malnutrition. N.
 		H.change_stat("perception", 2) // Few distractions, idle mind, focused senses. N.

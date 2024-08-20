@@ -12,7 +12,7 @@
 			var/mutable_appearance/mounted = mutable_appearance(icon, "saiga_mounted", 4.3)
 			add_overlay(mounted)
 
-/mob/living/simple_animal/hostile/retaliate/rogue/saiga/tamed()
+/mob/living/simple_animal/hostile/retaliate/rogue/saiga/tamed(mob/user)
 	..()
 	deaggroprob = 30
 	if(can_buckle)
@@ -34,7 +34,7 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga
 	icon = 'icons/roguetown/mob/monster/saiga.dmi'
 	name = "saiga"
-	desc = ""
+	desc = "Proud beasts of burden, warmounts, and symbols of luxury alike. Especially sacred to the steppe people of the Northeast Regions."
 	icon_state = "saiga"
 	icon_living = "saiga"
 	icon_dead = "saiga_dead"
@@ -98,7 +98,6 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigakid
 	icon = 'icons/roguetown/mob/monster/saiga.dmi'
 	name = "saiga"
-	desc = ""
 	icon_state = "saigakid"
 	icon_living = "saigakid"
 	icon_dead = "saigakid_dead"
@@ -241,7 +240,7 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/saigabuck/Initialize()
 	..()
 	if(tame)
-		tamed()
+		tamed(owner)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/saigabuck/taunted(mob/user)
 	emote("aggro")
@@ -250,7 +249,7 @@
 	return
 
 
-/mob/living/simple_animal/hostile/retaliate/rogue/saigabuck/tamed()
+/mob/living/simple_animal/hostile/retaliate/rogue/saigabuck/tamed(mob/user)
 	..()
 	deaggroprob = 20
 	if(can_buckle)
