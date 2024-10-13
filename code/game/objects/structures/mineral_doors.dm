@@ -146,12 +146,21 @@
 				user.visible_message("<span class='warning'>[user] bashes into [src]!</span>")
 				take_damage(200, "brute", "melee", 1)
 			else
-				playsound(src, 'sound/combat/hits/onwood/woodimpact (1).ogg', 100)
+				playsound(src, 'sound/combat/hits/onwood/woodimpact (1).ogg', 90)
 				force_open()
 				user.visible_message("<span class='warning'>[user] smashes through [src]!</span>")
 			return
+		if(HAS_TRAIT(user, TRAIT_ROTMAN))
+			if(locked)
+				user.visible_message("<span class='warning'>The deadite bashes into [src]!</span>")
+				take_damage(50, "brute", "melee", 1)
+			else
+				playsound(src, 'sound/combat/hits/onwood/woodimpact (1).ogg', 90)
+				force_open()
+				user.visible_message("<span class='warning'>The deadite smashes through [src]!</span>")
+			return
 		if(locked)
-			playsound(src, rattlesound, 100)
+			playsound(src, rattlesound, 90)
 			var/oldx = pixel_x
 			animate(src, pixel_x = oldx+1, time = 0.5)
 			animate(pixel_x = oldx-1, time = 0.5)
@@ -185,6 +194,11 @@
 	if(isSwitchingStates)
 		return
 	if(locked)
+		if( user.used_intent.type == /datum/intent/unarmed/claw )
+			user.changeNext_move(CLICK_CD_MELEE)	
+			to_chat(user, "<span class='warning'>The deadite claws at the door!!</span>")
+			take_damage(40, "brute", "melee", 1)
+			return
 		if(isliving(user))
 			var/mob/living/L = user
 			if(L.m_intent == MOVE_INTENT_SNEAK)
@@ -233,7 +247,7 @@
 /obj/structure/mineral_door/proc/Open(silent = FALSE)
 	isSwitchingStates = TRUE
 	if(!silent)
-		playsound(src, openSound, 100)
+		playsound(src, openSound, 90)
 	if(!windowed)
 		set_opacity(FALSE)
 	flick("[base_state]opening",src)
@@ -256,7 +270,7 @@
 		return
 	isSwitchingStates = TRUE
 	if(!silent)
-		playsound(src, closeSound, 100)
+		playsound(src, closeSound, 90)
 	flick("[base_state]closing",src)
 	sleep(10)
 	density = TRUE
@@ -615,7 +629,7 @@
 	name = "door"
 	desc = ""
 	icon_state = "woodhandle"
-	openSound = 'sound/foley/doors/creak.ogg'
+	openSound = list('sound/foley/doors/creak.ogg')
 	closeSound = 'sound/foley/doors/shut.ogg'
 	sheetType = null
 	resistance_flags = FLAMMABLE

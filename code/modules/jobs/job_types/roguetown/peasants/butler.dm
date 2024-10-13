@@ -18,11 +18,13 @@
 	outfit = /datum/outfit/job/roguetown/butler
 	display_order = JDO_BUTLER
 	bypass_lastclass = TRUE
+	min_pq = 1
 	give_bank_account = 5
 
 /datum/outfit/job/roguetown/butler/pre_equip(mob/living/carbon/human/H)
 	..()
 	backpack_contents = list(/obj/item/book/rogue/manners = 1)
+	mask = /obj/item/clothing/mask/rogue/spectacles
 	if(H.mind)
 		H.mind.adjust_skillrank(/datum/skill/combat/knives, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
@@ -31,30 +33,13 @@
 		H.mind.adjust_skillrank(/datum/skill/labor/farming, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/sewing, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/craft/crafting, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/stealing, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/music, pick(1,1,2,3), TRUE)
 		H.change_stat("strength", -1)
 		H.change_stat("intelligence", 2)
 		H.change_stat("perception", 1)
 		H.change_stat("endurance", 1)
-
-	if(H.charflaw)
-		if(H.charflaw.type != /datum/charflaw/badsight)
-			var/obj/item/bodypart/O = H.get_bodypart(BODY_ZONE_R_ARM)
-			if(O)
-				O.drop_limb()
-				qdel(O)
-			O = H.get_bodypart(BODY_ZONE_L_ARM)
-			if(O)
-				O.drop_limb()
-				qdel(O)
-			H.regenerate_limb(BODY_ZONE_R_ARM)
-			H.regenerate_limb(BODY_ZONE_L_ARM)
-			H.charflaw = new /datum/charflaw/badsight()
-			if(!istype(H.wear_mask, /obj/item/clothing/mask/rogue/spectacles))
-				qdel(H.wear_mask)
-				mask = /obj/item/clothing/mask/rogue/spectacles
 
 	if(H.gender == MALE)
 		pants = /obj/item/clothing/under/roguetown/tights

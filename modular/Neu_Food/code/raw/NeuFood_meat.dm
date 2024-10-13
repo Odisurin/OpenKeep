@@ -36,10 +36,12 @@
 
 /*	.............   Pork, spidermeat, birdmeat   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/fatty //pork
-	slices_num = 4
+	name = "raw pigflesh"
+	icon_state = "meatcutlet"
+	color = "#f093c3"
+	slices_num = 2
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/bacon
 	chopping_sound = TRUE
-	become_rot_type = /obj/item/reagent_containers/food/snacks/rotten/bacon
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/bacon
 	name = "raw bacon"
@@ -52,7 +54,7 @@
 	become_rot_type = /obj/item/reagent_containers/food/snacks/rotten/bacon
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/spider // Low-nutrient, kind of gross. Survival food.
-	name = "spidermeat"
+	name = "strange meat"
 	icon_state = "spidermeat"
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/spider/fried
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/spider/fried

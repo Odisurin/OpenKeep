@@ -10,6 +10,7 @@
 	item_state = "mace_greyscale"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	equip_sound = "rustle"
 	sharpness = IS_BLUNT
 	//dropshrink = 0.75
 	wlength = WLENGTH_NORMAL
@@ -98,8 +99,8 @@
 	minstr = 0
 	sellprice = 5
 
-/obj/item/rogueweapon/mace/woodclub/New()
-	..()
+/obj/item/rogueweapon/mace/woodclub/Initialize(mapload)
+	. = ..()
 	icon_state = "club[rand(1,2)]"
 
 /datum/intent/mace/strike/wood
@@ -142,6 +143,13 @@
 	minstr = 0
 	wdefense = 3
 	sellprice = 15
+
+/obj/item/rogueweapon/mace/cudgel/carpenter
+	force = 15
+	force_wielded = 20
+	name = "peasant cudgel"
+	icon_state = "carpentercudgel"
+	desc = "A stubby club reinforced with iron bits, popular among village watchmen and peasant militias. Despite being reinforced and hard-hitting, it still cannot compare to a proper mace."
 
 /obj/item/rogueweapon/mace/cudgel/getonmobprop(tag)
 	. = ..()
@@ -271,7 +279,7 @@
 	chargetime = 3
 	swingdelay = 3
 	icon_state = "insmash"
-	misscost = 30
+	misscost = 25
 	warnie = "mobwarning"
 
 // For the Goedendag. If it applies to the grand mace, use this one instead.
@@ -291,7 +299,7 @@
 
 // Copper Bludgeon
 
-obj/item/rogueweapon/mace/goden/copper
+/obj/item/rogueweapon/mace/goden/copper
 	force = 10
 	force_wielded = 20
 	slowdown = 1
@@ -390,38 +398,18 @@ obj/item/rogueweapon/mace/goden/copper
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0)
 
-/datum/intent/mace/smash/warhamm
-	reach = 2
-
 // Unique longbeard hammer.
-/obj/item/rogueweapon/mace/warhammer
-	force = 10
-	force_wielded = 20
-	possible_item_intents = list(/datum/intent/mace/strike)
-	gripped_intents = list(/datum/intent/mace/heavy/strike, /datum/intent/mace/heavy/smash)
+/obj/item/rogueweapon/mace/goden/steel/warhammer
 	name = "warhammer"
 	desc = "A great dwarven warhammer made of stern steel, enscratched with oaths of battle and time."
 	icon_state = "warhammer"
 	icon = 'icons/roguetown/weapons/64.dmi'
 	//dropshrink = 0.75
 	wlength = WLENGTH_GREAT
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = ITEM_SLOT_BACK
-	associated_skill = /datum/skill/combat/axesmaces
-	smeltresult = /obj/item/ingot/steel
 	swingsound = BLUNTWOOSH_HUGE
-	max_integrity = 500
-	minstr = 10
-	wdefense = 3
-	pixel_y = -16
-	pixel_x = -16
-	inhand_x_dimension = 64
-	inhand_y_dimension = 64
-	bigboy = TRUE
-	gripsprite = TRUE
 	sellprice = 100
 
-/obj/item/rogueweapon/mace/warhammer/getonmobprop(tag)
+/obj/item/rogueweapon/mace/goden/steel/warhammer/getonmobprop(tag)
 	. = ..()
 	if(tag)
 		switch(tag)

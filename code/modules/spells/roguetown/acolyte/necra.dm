@@ -41,7 +41,7 @@
 	charge_max = 30 SECONDS
 	max_targets = 0
 	cast_without_targets = TRUE
-	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
+	req_items = list(/obj/item/clothing/neck/roguetown/psycross)
 	sound = 'sound/magic/churn.ogg'
 	associated_skill = /datum/skill/magic/holy
 	invocation = "The Undermaiden rebukes!"
@@ -54,7 +54,7 @@
 	if(user && user.mind)
 		prob2explode = 0
 		for(var/i in 1 to user.mind.get_skill_level(/datum/skill/magic/holy))
-			prob2explode += 40
+			prob2explode += 80
 	for(var/mob/living/L in targets)
 		var/isvampire = FALSE
 		var/iszombie = FALSE

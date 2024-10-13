@@ -16,8 +16,6 @@
 
 /datum/antagonist/bandit/on_gain()
 	owner.special_role = "Bandit"
-	owner.assigned_role = "Bandit"
-	owner.current.job = null
 	forge_objectives()
 	. = ..()
 	move_to_spawnpoint()
@@ -70,7 +68,7 @@
 	if(H.mobid in GLOB.character_list)
 		GLOB.character_list[H.mobid] = null
 	GLOB.chosen_names -= H.real_name
-	H.cmode_music = 'sound/music/combat_bandit.ogg'
+	H.cmode_music = list('sound/music/combat_bandit.ogg', 'sound/music/combat_bandit2.ogg', 'sound/music/combat_bandit3.ogg')
 
 	addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, choose_name_popup), "BANDIT"), 5 SECONDS)
 //	H.job = "Bandit"
@@ -121,7 +119,7 @@
 			var/armor2choose = pickweight(list("Rusty halfplate" = 2, "Chainmail" = 1))
 			switch(armor2choose)
 				if("Rusty halfplate")
-					armor = /obj/item/clothing/suit/roguetown/armor/plate/half/iron/rust
+					armor = /obj/item/clothing/suit/roguetown/armor/cuirass/iron/rust
 				if("Chainmail")
 					armor = /obj/item/clothing/suit/roguetown/armor/chainmail/iron
 
@@ -245,7 +243,7 @@
 	// The commmon skills shared between all bandits
 	H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
- 
+
 	H.mind.adjust_skillrank(/datum/skill/misc/climbing, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 2, TRUE)
@@ -271,7 +269,7 @@
 			gloves = /obj/item/clothing/gloves/roguetown/angle
 			shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/black
 
-	H.change_stat("intelligence", -2)
+	H.change_stat("intelligence", -1)
 	var/obj/item/bodypart/B = H.get_bodypart("head")
 	if(B)
 		B.sellprice = rand(44, 88)
@@ -290,7 +288,7 @@
 		else
 			to_chat(world, "[the_name] was a bandit. He stole [amt] triumphs worth of loot.")
 	return
-
+/* 
 	var/traitorwin = TRUE
 
 	var/count = 0
@@ -313,6 +311,7 @@
 		to_chat(owner.current, "<span class='redtext'>I've failed to satisfy my greed.</span>")
 		if(owner.current)
 			owner.current.playsound_local(get_turf(owner.current), 'sound/misc/fail.ogg', 100, FALSE, pressure_affected = FALSE)
+*/
 
 /*	.................   Unique Bandit recipes   ................... */
 /datum/crafting_recipe/bandit_volfhelm

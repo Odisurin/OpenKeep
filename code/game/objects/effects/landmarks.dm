@@ -216,7 +216,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Innkeep"
 	icon_state = "arrow"
 
-/obj/effect/landmark/start/apothecary
+/obj/effect/landmark/start/archivist
 	name = "Archivist"
 	icon_state = "arrow"
 
@@ -728,5 +728,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	name = "safe zone"
 
 /obj/effect/landmark/underworldcoin/Initialize(mapload)
-	GLOB.underworldcoin += loc
-	return
+	SHOULD_CALL_PARENT(FALSE)
+	GLOB.underworldcoinspawns += loc
+	return INITIALIZE_HINT_QDEL
