@@ -77,12 +77,12 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 	if(headrebdecree)
 		return TRUE
 
-	check_for_lord()
+//	check_for_lord()
 
 	if(ttime > 280 MINUTES) //3 hour cutoff
 		return TRUE
 
-/datum/game_mode/chaosmode/proc/check_for_lord()
+/* /datum/game_mode/chaosmode/proc/check_for_lord()
 	if(world.time < next_check_lord)
 		return
 	next_check_lord = world.time + 1 MINUTES
@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 			addomen("nolord")
 		return FALSE
 	else
-		return TRUE
+		return TRUE */
 
 /datum/game_mode/chaosmode/pre_setup()
 	if(allmig || roguefight)
@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 			pick_cultist()
 			log_game("Major Antagonist: Cultists")
 		if(3)
-			if(num_players() >= 14) //as in 14 roundstart-ready players 
+			if(num_players() >= 14) //as in 14 roundstart-ready players
 				pick_vampires()
 				log_game("Major Antagonist: Vampire Lord")
 			else
@@ -212,11 +212,11 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 					break
 				if(!(bandaids in allantags)) // We don't want to double dip... I guess? Two birds one stone tho, A already bandit check would check pre_bandits
 					continue
-				if(bandaids.assigned_role in GLOB.noble_positions) // Job cat string stoppers
+				if(bandaids.assigned_role in GLOB.court_positions) // Job cat string stoppers
 					continue
 				if(bandaids.assigned_role in GLOB.church_positions) // Many of these guys vanishing would suck
 					continue
-				if(bandaids.assigned_role in GLOB.serf_positions) // Many of these guys vanishing would suck
+				if(bandaids.assigned_role in GLOB.towner_positions) // Many of these guys vanishing would suck
 					continue
 
 				allantags -= bandaids
@@ -249,13 +249,13 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 					blockme = TRUE
 				if(rebelguy.assigned_role in GLOB.garrison_positions)
 					blockme = TRUE
-				if(rebelguy.assigned_role in GLOB.noble_positions)
+				if(rebelguy.assigned_role in GLOB.court_positions)
 					blockme = TRUE
 				if(rebelguy.assigned_role in GLOB.apprentices_positions)
 					blockme = TRUE
 				if(rebelguy.assigned_role in GLOB.church_positions)
 					blockme = TRUE
-				if(rebelguy.assigned_role in GLOB.serf_positions)
+				if(rebelguy.assigned_role in GLOB.towner_positions)
 					blockme = TRUE
 				if(blockme)
 					continue
@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 
 /datum/game_mode/chaosmode/proc/pick_maniac()
 	restricted_jobs = list("King",
-	"Queen",
+	"Consort",
 	"Merchant",
 	"Priest")
 	antag_candidates = get_players_for_role(ROLE_NBEAST)
@@ -297,9 +297,9 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 	restricted_jobs = list()
 
 /datum/game_mode/chaosmode/proc/pick_cultist()
-	var/remaining = 2 // 1 leader, 1 lackey :)
+	var/remaining = 3 // 1 leader, 2 lackeys :)
 	restricted_jobs = list("King",
-	"Queen",
+	"Consort",
 	"Merchant",
 	"Priest")
 	antag_candidates = get_players_for_role(ROLE_ZIZOIDCULTIST)
@@ -340,7 +340,7 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 		var/blockme = FALSE
 		if(!(vampire in allantags))
 			blockme = TRUE
-		if(vampire.assigned_role in GLOB.noble_positions)
+		if(vampire.assigned_role in GLOB.court_positions)
 			continue
 		if(vampire.assigned_role in GLOB.apprentices_positions)
 			blockme = TRUE
@@ -372,7 +372,7 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 		var/blockme = FALSE
 		if(!(werewolf in allantags))
 			blockme = TRUE
-		if(werewolf.assigned_role in GLOB.noble_positions)
+		if(werewolf.assigned_role in GLOB.court_positions)
 			blockme = TRUE
 		if(werewolf.assigned_role in GLOB.apprentices_positions)
 			blockme = TRUE
@@ -463,7 +463,7 @@ GLOBAL_LIST_INIT(roguegamemodes, list("Rebellion", "Vampire Lord", "Extended", "
 
 /datum/game_mode/chaosmode/make_antag_chance(mob/living/carbon/human/character) //klatejoin
 	return
-/* 
+/*
 // ******** VILLAINS
 	var/num_villains = round((num_players() * 0.30)+1, 1)
 	if((villains.len + pre_villains.len) >= num_villains) //Upper cap for number of latejoin antagonists

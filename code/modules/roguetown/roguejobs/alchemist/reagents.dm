@@ -16,7 +16,7 @@
 
 /datum/reagent/medicine/healthpot/on_mob_life(mob/living/carbon/M)
 	if(volume > 0.99)
-		M.blood_volume = min(M.blood_volume+5, BLOOD_VOLUME_MAXIMUM)
+		M.blood_volume = min(M.blood_volume+15, BLOOD_VOLUME_MAXIMUM)
 		M.adjustBruteLoss(-2*REM, 0)
 		M.adjustFireLoss(-2*REM, 0)
 		M.adjustOxyLoss(-1, 0)
@@ -35,10 +35,10 @@
 
 /datum/reagent/medicine/stronghealth/on_mob_life(mob/living/carbon/M)
 	if(volume > 0.99)
-		M.blood_volume = min(M.blood_volume+5, BLOOD_VOLUME_MAXIMUM)
-		M.adjustBruteLoss(-8*REM, 0)
-		M.adjustFireLoss(-8*REM, 0)
-		M.adjustOxyLoss(-5, 0)
+		M.blood_volume = min(M.blood_volume+20, BLOOD_VOLUME_MAXIMUM)
+		M.adjustBruteLoss(-15*REM, 0)
+		M.adjustFireLoss(-15*REM, 0)
+		M.adjustOxyLoss(-6, 0)
 		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -5*REM)
 		M.adjustCloneLoss(-5*REM, 0)
 	..()
@@ -102,6 +102,18 @@
 		M.adjustToxLoss(-8, 0)
 	..()
 	. = 1
+
+/datum/reagent/buff/coldfire
+	name = "Coldfire"
+	color = "#616990"
+	taste_description = "burning"
+	metabolization_rate = REAGENTS_METABOLISM
+
+/datum/reagent/buff/coldfire/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(L, TRAIT_MOB_FIRE_IMMUNE, type)
+
+/datum/reagent/buff/coldfire/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_MOB_FIRE_IMMUNE, type)
 
 //Buff potions
 /datum/reagent/buff
@@ -204,7 +216,7 @@
 	return ..()
 
 
-//Poisons			
+//Poisons
 /* Tested this quite a bit. Heres the deal. Metabolism REAGENTS_SLOW_METABOLISM is 0.1 and needs to be that so poison isnt too fast working but
 still is dangerous. Toxloss of 3 at metabolism 0.1 puts you in dying early stage then stops for reference of these values.
 A dose of ingested potion is defined as 5u, projectile deliver at most 2u, you already do damage with projectile, a bolt can only feasible hold a tiny amount of poison, so much easier to deliver than ingested and so on.
@@ -244,7 +256,7 @@ If you want to expand on poisons theres tons of fun effects TG chemistry has tha
 			M.add_nausea(1)
 			M.adjustToxLoss(2.3)  // will put you just above dying crit treshold
 		else
-			M.add_nausea(2)
+			M.add_nausea(6) //So a poison bolt (2u) will eventually cause puking at least once
 			M.adjustToxLoss(4.5) // just enough so 5u will kill you dead with no help
 	return ..()
 

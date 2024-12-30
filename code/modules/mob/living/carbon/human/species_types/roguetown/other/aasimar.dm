@@ -1,3 +1,13 @@
+	/*==============*
+	*				*
+	*	Aasimar		*
+	*				*
+	*===============*/
+
+//	( + Pain Resist )
+//	( + Bleed Resist )
+//	( - Hunger )
+
 /mob/living/carbon/human/species/aasimar
 	race = /datum/species/aasimar
 
@@ -31,7 +41,7 @@
 	liked_food = NONE
 	possible_ages = list(AGE_IMMORTAL)
 	max_age = "Unknown"
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT
 	limbs_icon_m = 'icons/roguetown/mob/bodies/m/mt_muscular.dmi'
 	limbs_icon_f = 'icons/roguetown/mob/bodies/f/ft_muscular.dmi'
 	dam_icon = 'icons/roguetown/mob/bodies/dam/dam_male.dmi'
@@ -50,8 +60,8 @@
 	OFFSET_FACE_F = list(0,1), OFFSET_BELT_F = list(0,1), OFFSET_BACK_F = list(0,1), \
 	OFFSET_NECK_F = list(0,1), OFFSET_MOUTH_F = list(0,1), OFFSET_PANTS_F = list(0,1), \
 	OFFSET_SHIRT_F = list(0,1), OFFSET_ARMOR_F = list(0,1), OFFSET_UNDIES_F = list(0,1))
-	specstats = list("strength" = 1, "perception" = 0, "intelligence" = -2, "constitution" = 2, "endurance" = 1, "speed" = 0, "fortune" = -1)
-	specstats_f = list("strength" = 1, "perception" = 0, "intelligence" = -2, "constitution" = 1, "endurance" = 1, "speed" = 1, "fortune" = -1)
+	specstats = list("strength" = 1, "perception" = 0, "intelligence" = -2, "constitution" = 3, "endurance" = 1, "speed" = 0, "fortune" = -1)
+	specstats_f = list("strength" = 1, "perception" = 0, "intelligence" = -2, "constitution" = 3, "endurance" = 1, "speed" = 0, "fortune" = -1)
 	enflamed_icon = "widefire"
 	patreon_req = 0
 
@@ -124,12 +134,12 @@
 	"black - oil" = "181a1d",
 	"black - cave" = "201616",
 	"black - rogue" = "2b201b",
-	"black - midnight" = "1d1b2b",	
-	
+	"black - midnight" = "1d1b2b",
+
 	"white - silver" = "d3d9e3",
 	"white - alabaster" = "fffffc",
 	"white - skies" = "a1b4d4",
-	
+
 	"yellow - sunlight" = "f3f797",
 	"blond - strawberry" = "c69b71",
 	"blond - pale" = "9d8d6e",
@@ -163,6 +173,7 @@
 
 /datum/species/aasimar/random_surname()
 	return
-
-/datum/species/aasimar/get_accent_list()
+/*
+/datum/species/aasimar/get_accent(mob/living/carbon/human/H)
 	return strings("proper_replacement.json", "proper")
+*/

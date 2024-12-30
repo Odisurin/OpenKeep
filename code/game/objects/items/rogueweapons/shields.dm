@@ -62,6 +62,7 @@
 	return 0
 
 /datum/intent/shield/bash
+	penfactor = AP_CLUB_STRIKE
 	name = "bash"
 	icon_state = "inbash"
 	hitsound = list('sound/combat/shieldbash_wood.ogg')
@@ -92,9 +93,13 @@
 
 /obj/item/rogueweapon/shield/wood/attack_hand(mob/user)
 	if(!overlays.len)
-		var/icon/J = new('icons/roguetown/weapons/wood_heraldry.dmi')
-		var/list/istates = J.IconStates()
-		var/picked_name = input(user, "Choose a Heraldry", "ROGUETOWN", name) as null|anything in sortList(istates)
+		if(!('icons/roguetown/weapons/wood_heraldry.dmi' in GLOB.IconStates_cache))
+			var/icon/J = new('icons/roguetown/weapons/wood_heraldry.dmi')
+			var/list/istates = J.IconStates()
+			GLOB.IconStates_cache |= icon
+			GLOB.IconStates_cache['icons/roguetown/weapons/wood_heraldry.dmi'] = istates
+
+		var/picked_name = input(user, "Choose a Heraldry", "ROGUETOWN", name) as null|anything in sortList(GLOB.IconStates_cache['icons/roguetown/weapons/wood_heraldry.dmi'])
 		if(!picked_name)
 			picked_name = "none"
 		var/mutable_appearance/M = mutable_appearance('icons/roguetown/weapons/wood_heraldry.dmi', picked_name)
@@ -133,7 +138,7 @@
 			update_icon()
 		else
 			return
-	
+
 /obj/item/rogueweapon/shield/tower
 	name = "tower shield"
 	desc = "A gigantic, iron reinforced shield that covers the entire body, a design-copy of the Aasimar shields of an era gone by."
@@ -156,6 +161,14 @@
 	desc = "A bulky shield of spike-like lengths molten together. The motifs evoke anything but safety and protection."
 	icon_state = "spidershield"
 	coverage = 55
+
+/obj/item/rogueweapon/shield/tower/rider
+	name = "desert rider shield"
+	desc = "A shield of Zybantine design, reinforced with iron and made to protect the upper body."
+	icon_state = "desert_rider"
+	force = 15
+	wdefense = 5
+	coverage = 50
 
 /obj/item/rogueweapon/shield/tower/getonmobprop(tag)
 	. = ..()
@@ -229,9 +242,12 @@
 
 /obj/item/rogueweapon/shield/tower/metal/attack_hand(mob/user)
 	if(!overlays.len)
-		var/icon/J = new('icons/roguetown/weapons/shield_heraldry.dmi')
-		var/list/istates = J.IconStates()
-		var/picked_name = input(user, "Choose a Heraldry", "ROGUETOWN", name) as null|anything in sortList(istates)
+		if(!('icons/roguetown/weapons/shield_heraldry.dmi' in GLOB.IconStates_cache))
+			var/icon/J = new('icons/roguetown/weapons/shield_heraldry.dmi')
+			var/list/istates = J.IconStates()
+			GLOB.IconStates_cache |= icon
+			GLOB.IconStates_cache['icons/roguetown/weapons/shield_heraldry.dmi'] = istates
+		var/picked_name = input(user, "Choose a Heraldry", "ROGUETOWN", name) as null|anything in sortList(GLOB.IconStates_cache['icons/roguetown/weapons/shield_heraldry.dmi'])
 		if(!picked_name)
 			picked_name = "none"
 		var/mutable_appearance/M = mutable_appearance('icons/roguetown/weapons/shield_heraldry.dmi', picked_name)

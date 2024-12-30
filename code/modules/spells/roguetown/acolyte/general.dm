@@ -13,16 +13,22 @@
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = TRUE
 	charge_max = 10 SECONDS
-	devotion_cost = -25
+	devotion_cost = 25
+	miracle = TRUE // If it has a devotion cost, it was always meant to be a miracle
 
 /obj/effect/proc_holder/spell/invoked/lesser_heal/cast(list/targets, mob/living/user)
+	. = ..()
 	if(isliving(targets[1]))
 		var/mob/living/target = targets[1]
 		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
 			target.visible_message("<span class='danger'>[target] is burned by holy light!</span>", "<span class='userdanger'>I'm burned by holy light!</span>")
-			target.adjustFireLoss(50)
-			target.Paralyze(30)
+			target.adjustFireLoss(25)
 			target.fire_act(1,5)
+			return TRUE
+		if(target.real_name in GLOB.excommunicated_players)
+			target.visible_message("<span class='warning'>The angry Gods sears [user]s flesh, blasphemer, heretic!</span>", "<span class='notice'>I am despised by the Gods, rejected, and they remind me with a wave of pain just how unlovable I am!</span>")
+			target.emote("scream")
+			target.adjustFireLoss(20)
 			return TRUE
 		var/conditional_buff = FALSE
 		var/situational_bonus = 10
@@ -94,14 +100,11 @@
 					conditional_buff = TRUE
 			if(/datum/patron/divine/eora)
 				target.visible_message("<span class='info'>An emanance of love blossoms around [target]!</span>", "<span class='notice'>I'm filled with the restorative warmth of love!</span>")
-				// if they're wearing an eoran bud (or are a pacifist), pretty much double the healing. if we're also wearing a bud at any point or a pacifist from any other source, apply another +15 bonus
+				// if they're wearing an eoran bud (or are a pacifist), pretty much double the healing.
 				situational_bonus = 0
 				if (HAS_TRAIT(target, TRAIT_PACIFISM))
 					conditional_buff = TRUE
 					situational_bonus = 25
-				if (HAS_TRAIT(user, TRAIT_PACIFISM))
-					conditional_buff = TRUE
-					situational_bonus += 15
 			if(/datum/patron/inhumen/zizo)
 				target.visible_message(span_info("Vital energies are sapped towards [target]!"), span_notice("The life around me pales as I am restored!"))
 				// set up a ritual pile of bones (or just cast near a stack of bones whatever) around us for massive bonuses, cap at 50 for 75 healing total (wowie)
@@ -125,9 +128,11 @@
 					conditional_buff = TRUE
 					situational_bonus = 25
 			if(/datum/patron/godless)
-				target.visible_message(span_info("Without any particular cause or reason, [target] is healed!"), span_notice("My wounds close without cause."))
+				target.visible_message(span_info("No Gods answer these prayers."), span_notice("No Gods answer these prayers."))
+				return
 			else
 				target.visible_message(span_info("A choral sound comes from above and [target] is healed!"), span_notice("I am bathed in healing choral hymns!"))
+
 
 		var/healing = 25
 		if (conditional_buff)
@@ -169,15 +174,16 @@
 	antimagic_allowed = TRUE
 	charge_max = 20 SECONDS
 	miracle = TRUE
-	devotion_cost = -45
+	devotion_cost = 45
 
 /obj/effect/proc_holder/spell/invoked/heal/cast(list/targets, mob/living/user)
+	. = ..()
 	if(isliving(targets[1]))
 		var/mob/living/target = targets[1]
 		if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
 			target.visible_message("<span class='danger'>[target] is burned by holy light!</span>", "<span class='userdanger'>I'm burned by holy light!</span>")
-			target.adjustFireLoss(100)
-			target.Paralyze(50)
+			target.adjustFireLoss(50)
+			target.Knockdown(10)
 			target.fire_act(1,5)
 			return TRUE
 		target.visible_message("<span class='info'>A wreath of gentle light passes over [target]!</span>", "<span class='notice'>I'm bathed in holy light!</span>")
@@ -210,6 +216,7 @@
 	charge_max = 1 MINUTES
 
 /obj/effect/proc_holder/spell/self/barbrage/cast(list/targets,mob/living/user = usr)
+	. = ..()
 	user.emote("rage", forced = TRUE)
 	playsound(get_turf(user), 'sound/magic/barbroar.ogg', 50, TRUE)
 	user.apply_status_effect(/datum/status_effect/buff/barbrage)
@@ -222,7 +229,7 @@
 	associated_skill = /datum/skill/misc/music
 	charge_max = 10 MINUTES
 	range = 7
-	
+
 /obj/effect/proc_holder/spell/invoked/mockery/cast(list/targets, mob/living/user)
 	playsound(get_turf(user), 'sound/magic/mockery.ogg', 40, FALSE)
 	for(var/mob/living/listener in hearers(7))
@@ -232,7 +239,7 @@
 					listener.apply_status_effect(/datum/status_effect/debuff/viciousmockery)
 				else
 					return // No debuff for good guys
-			else 
+			else
 				return // No debuff for good guys
 
 /obj/effect/proc_holder/spell/invoked/mockery/invocation(mob/user = usr)
@@ -251,7 +258,7 @@
 						user.say("That's a face not even Graggar could love!", forced = "spell")
 					if(5)
 						user.say("I shall ne'er desist from thee, nor shall I ever disappoint thee much~", forced = "spell")
-			
+
 			if("elf")
 				switch(pick(1,2,3,4,5))
 					if(1)

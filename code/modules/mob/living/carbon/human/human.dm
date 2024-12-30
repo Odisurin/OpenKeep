@@ -57,6 +57,9 @@
 #endif
 
 /mob/living/carbon/human/Initialize()
+#ifdef MATURESERVER
+	sexcon = new /datum/sex_controller(src)
+#endif
 	verbs += /mob/living/proc/mob_sleep
 	verbs += /mob/living/proc/lay_down
 
@@ -132,7 +135,8 @@
 		AddComponent(/datum/component/mood)
 
 /mob/living/carbon/human/Destroy()
-	SShumannpc.processing -= src
+	QDEL_NULL(sexcon)
+	STOP_PROCESSING(SShumannpc, src)
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
 	return ..()
@@ -160,7 +164,7 @@
 				stat("Confessions sent: [GLOB.confessors.len]")
 
 	return //RTchange
-/* 
+/*
 	if(statpanel("Status"))
 //		stat(null, "Intent: [used_intent]")
 //		stat(null, "Move Mode: [m_intent]")
@@ -352,10 +356,6 @@
 // called when something steps onto a human
 // this could be made more general, but for now just handle mulebot
 /mob/living/carbon/human/Crossed(atom/movable/AM)
-	var/mob/living/simple_animal/bot/mulebot/MB = AM
-	if(istype(MB))
-		MB.RunOver(src)
-
 	. = ..()
 	spreadFire(AM)
 
@@ -391,26 +391,6 @@
 
 	var/threatcount = 0
 
-	//Lasertag bullshit
-	if(lasercolor)
-		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
-			if(istype(wear_armor, /obj/item/clothing/suit/redtag))
-				threatcount += 4
-			if(is_holding_item_of_type(/obj/item/gun/energy/laser/redtag))
-				threatcount += 4
-			if(istype(belt, /obj/item/gun/energy/laser/redtag))
-				threatcount += 2
-
-		if(lasercolor == "r")
-			if(istype(wear_armor, /obj/item/clothing/suit/bluetag))
-				threatcount += 4
-			if(is_holding_item_of_type(/obj/item/gun/energy/laser/bluetag))
-				threatcount += 4
-			if(istype(belt, /obj/item/gun/energy/laser/bluetag))
-				threatcount += 2
-
-		return threatcount
-
 	//Check for ID
 	var/obj/item/card/id/idcard = get_idcard(FALSE)
 	if( (judgement_criteria & JUDGE_IDCHECK) && !idcard && name=="Unknown")
@@ -439,7 +419,7 @@
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
+	if(istype(head, /obj/item/clothing/head/wizard))
 		threatcount += 2
 
 	//Check for nonhuman scum
@@ -449,10 +429,6 @@
 	//mindshield implants imply trustworthyness
 	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
 		threatcount -= 1
-
-	//Agent cards lower threatlevel.
-	if(istype(idcard, /obj/item/card/id/syndicate))
-		threatcount -= 5
 
 	return threatcount
 
@@ -467,15 +443,6 @@
 	underwear = "Nude"
 	update_body()
 	update_hair()
-
-/mob/living/carbon/human/singularity_pull(S, current_size)
-	..()
-	if(current_size >= STAGE_THREE)
-		for(var/obj/item/hand in held_items)
-			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)  && dropItemToGround(hand))
-				step_towards(hand, src)
-				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
-	rad_act(current_size * 3)
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/C)
 	CHECK_DNA_AND_SPECIES(C)
@@ -775,7 +742,6 @@
 	VV_DROPDOWN_OPTION(VV_HK_MAKE_MONKEY, "Make Monkey")
 	VV_DROPDOWN_OPTION(VV_HK_MAKE_CYBORG, "Make Cyborg")
 	VV_DROPDOWN_OPTION(VV_HK_MAKE_SLIME, "Make Slime")
-	VV_DROPDOWN_OPTION(VV_HK_MAKE_ALIEN, "Make Alien")
 	VV_DROPDOWN_OPTION(VV_HK_SET_SPECIES, "Set Species")
 	VV_DROPDOWN_OPTION(VV_HK_PURRBATION, "Toggle Purrbation")
 
@@ -838,12 +804,6 @@
 		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")
 			return
 		usr.client.holder.Topic("vv_override", list("makerobot"=href_list[VV_HK_TARGET]))
-	if(href_list[VV_HK_MAKE_ALIEN])
-		if(!check_rights(R_SPAWN))
-			return
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")
-			return
-		usr.client.holder.Topic("vv_override", list("makealien"=href_list[VV_HK_TARGET]))
 	if(href_list[VV_HK_MAKE_SLIME])
 		if(!check_rights(R_SPAWN))
 			return

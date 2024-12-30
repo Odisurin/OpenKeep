@@ -6,7 +6,7 @@
 /datum/supply_pack/rogue/weapons/shortsword
 	name = "Iron Short Sword"
 	cost = 15
-	contains = /obj/item/rogueweapon/sword/iron/short
+	contains = /obj/item/rogueweapon/sword/short/iron
 
 /datum/supply_pack/rogue/weapons/sword
 	name = "Iron Sword"
@@ -16,42 +16,32 @@
 /datum/supply_pack/rogue/weapons/greatsword
 	name = "Iron Greatsword"
 	cost = 54
-	contains = /obj/item/rogueweapon/greatsword/zwei
+	contains = /obj/item/rogueweapon/sword/long/greatsword/zwei
 
 /datum/supply_pack/rogue/weapons/mace
 	name = "Iron Mace"
 	cost = 20
 	contains = /obj/item/rogueweapon/mace
 
-/datum/supply_pack/rogue/weapons/greatmace
-	name = "Iron Warclub"
-	cost = 28
-	contains = /obj/item/rogueweapon/mace/goden
-
 /datum/supply_pack/rogue/weapons/axe
 	name = "Iron Axe"
 	cost = 20
-	contains = /obj/item/rogueweapon/woodcut
+	contains = /obj/item/rogueweapon/axe/iron
 
-/datum/supply_pack/rogue/weapons/huntingknife
-	name = "Iron Hunting Knife"
-	cost = 12
-	contains = /obj/item/rogueweapon/huntingknife
+/datum/supply_pack/rogue/weapons/peasantknife
+	name = "Peasant Knife"
+	cost = 15
+	contains = /obj/item/rogueweapon/knife/villager
 
 /datum/supply_pack/rogue/weapons/dagger
 	name = "Iron Dagger"
 	cost = 10
-	contains = /obj/item/rogueweapon/huntingknife/idagger
+	contains = /obj/item/rogueweapon/knife/dagger
 
 /datum/supply_pack/rogue/weapons/spear
-	name = "Iron Spear"
+	name = "Spear"
 	cost = 22
-	contains = /obj/item/rogueweapon/spear
-
-/datum/supply_pack/rogue/weapons/flail
-	name = "Iron Flail"
-	cost = 20
-	contains = /obj/item/rogueweapon/flail
+	contains = /obj/item/rogueweapon/polearm/spear
 
 /datum/supply_pack/rogue/weapons/whip
 	name = "Leather Whip"
@@ -73,18 +63,6 @@
 	cost = 40
 	contains = /obj/item/bomb/homemade
 
-/datum/supply_pack/rogue/weapons/nets
-	name = "Throwing Net"
-	cost = 15
-	contains = list(/obj/item/net,
-			/obj/item/net,
-			/obj/item/net)
-
-/datum/supply_pack/rogue/weapons/crossbow
-	name = "Crossbow"
-	cost = 40
-	contains = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
-
 /datum/supply_pack/rogue/weapons/bow
 	name = "Bow"
 	cost = 30
@@ -105,17 +83,8 @@
 	cost = 40
 	contains = /obj/item/quiver/arrows
 
-/datum/supply_pack/rogue/weapons/boltquiver
-	name = "Quiver of Bolts"
-	cost = 60
-	contains = /obj/item/quiver/bolts
-
 /datum/supply_pack/rogue/weapons/arrows
 	name = "Arrow"
 	cost = 2
 	contains = /obj/item/ammo_casing/caseless/rogue/arrow
 
-/datum/supply_pack/rogue/weapons/bolts
-	name = "Crossbow Bolt"
-	cost = 3
-	contains = /obj/item/ammo_casing/caseless/rogue/bolt

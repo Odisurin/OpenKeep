@@ -1,6 +1,6 @@
 /obj/structure/roguethrone
 	name = "throne of rockhill"
-	desc = "A big throne, to hold the Lord's giant personality. Say 'help' with the crown on your head if you are confused."
+	desc = "A big throne, to hold the Lord's giant personality. Say 'secrets of the throat' with the crown on your head if you are confused."
 	icon = 'icons/roguetown/misc/96x96.dmi'
 	icon_state = "throne"
 	density = FALSE
@@ -15,12 +15,12 @@
 	M.set_mob_offsets("bed_buckle", _x = 0, _y = 8)
 
 /obj/structure/roguethrone/post_unbuckle_mob(mob/living/M)
-	..()
+	. = ..()
 	density = FALSE
 	M.reset_offsets("bed_buckle")
 
 /obj/structure/roguethrone/Initialize()
-	..()
+	. = ..()
 	if(GLOB.lordprimary)
 		lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
 	else

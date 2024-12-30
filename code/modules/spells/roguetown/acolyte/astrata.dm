@@ -4,7 +4,7 @@
 	releasedrain = 30
 	chargedrain = 0
 	chargetime = 0
-	range = 15
+	range = 12
 	warnie = "sydwarning"
 	movement_interrupt = FALSE
 	chargedloop = null
@@ -14,19 +14,21 @@
 	invocation_type = "shout"
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = TRUE
-	charge_max = 5 SECONDS
+	charge_max = 8 SECONDS	// the cooldown
 	miracle = TRUE
-	devotion_cost = -45
+	devotion_cost = 45
 
 /obj/effect/proc_holder/spell/invoked/sacred_flame_rogue/cast(list/targets, mob/user = usr)
+	. = ..()
 	if(isliving(targets[1]))
 		var/mob/living/L = targets[1]
 		user.visible_message("<font color='yellow'>[user] points at [L]!</font>")
 		if(L.anti_magic_check(TRUE, TRUE))
 			return FALSE
+		playsound(user, 'sound/items/flint.ogg', 150, FALSE)
 		L.adjust_fire_stacks(5)
 		L.IgniteMob()
-		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, ExtinguishMob)), 5 SECONDS)
+		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living, ExtinguishMob)), 7 SECONDS)
 		return TRUE
 
 	// Spell interaction with ignitable objects (burn wooden things, light torches up)
@@ -57,11 +59,13 @@
 	antimagic_allowed = TRUE
 	charge_max = 2 MINUTES
 	miracle = TRUE
-	devotion_cost = -100
+	devotion_cost = 100
+//	req_inhand = list(/obj/item/roguecoin/gold)
 	/// Amount of PQ gained for reviving people
 	var/revive_pq = 0.25
 
 /obj/effect/proc_holder/spell/invoked/revive/cast(list/targets, mob/living/user)
+	. = ..()
 	if(isliving(targets[1]))
 		testing("revived1")
 		var/mob/living/target = targets[1]
@@ -93,6 +97,7 @@
 		target.Jitter(100)
 		target.update_body()
 		target.visible_message("<span class='notice'>[target] is revived by holy light!</span>", "<span class='green'>I awake from the void.</span>")
+		target.apply_status_effect(/datum/status_effect/debuff/revive)
 		if(target.mind && revive_pq && !HAS_TRAIT(target, TRAIT_IWASREVIVED) && user?.ckey)
 			adjust_playerquality(revive_pq, user.ckey)
 			ADD_TRAIT(target, TRAIT_IWASREVIVED, "[type]")

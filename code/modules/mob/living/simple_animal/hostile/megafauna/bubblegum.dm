@@ -54,8 +54,6 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
-	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
 	var/enrage_till = 0
@@ -515,7 +513,7 @@ Difficulty: Hard
 	true_spawn = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize()
-	..()
+	. = ..()
 	toggle_ai(AI_OFF)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/charge(atom/chargeat = target, delay = 3, chargepast = 2)

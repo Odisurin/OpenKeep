@@ -96,7 +96,7 @@
 /datum/supply_pack/rogue/apparel/armordress
 	name = "Padded Dress"
 	cost = 30
-	contains = /obj/item/clothing/suit/roguetown/armor/armordress
+	contains = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/dress
 
 /datum/supply_pack/rogue/apparel/leather_vest_random
 	name = "Leather Vest"
@@ -106,12 +106,12 @@
 /datum/supply_pack/rogue/apparel/workervest
 	name = "Worker Vest"
 	cost = 10
-	contains = /obj/item/clothing/suit/roguetown/armor/workervest
+	contains = /obj/item/clothing/suit/roguetown/armor/gambeson/light/striped
 
 /datum/supply_pack/rogue/apparel/silkcoat
 	name = "Silk Coat"
 	cost = 60
-	contains = /obj/item/clothing/suit/roguetown/armor/silkcoat
+	contains = /obj/item/clothing/suit/roguetown/armor/leather/jacket/silk_coat
 
 /datum/supply_pack/rogue/apparel/undershirt_random
 	name = "Undershirt"
@@ -148,10 +148,20 @@
 	cost = 30
 	contains = /obj/item/clothing/suit/roguetown/shirt/dress/silkdress/random
 
+/datum/supply_pack/rogue/apparel/valoriandress
+	name = "Valorian Dress"
+	cost = 15
+	contains = /obj/item/clothing/suit/roguetown/shirt/dress/valorian
+
 /datum/supply_pack/rogue/apparel/robe
 	name = "Robe"
 	cost = 5
 	contains = /obj/item/clothing/suit/roguetown/shirt/robe/mage
+
+/datum/supply_pack/rogue/apparel/bathrobe
+	name = "Bathrobe"
+	cost = 14
+	contains = /obj/item/clothing/suit/roguetown/shirt/robe/bath
 
 /datum/supply_pack/rogue/apparel/tights_random
 	name = "Cloth Tights"

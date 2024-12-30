@@ -15,7 +15,7 @@
 	..()
 	head = /obj/item/clothing/head/roguetown/helmet/leather/minershelm
 	pants = /obj/item/clothing/under/roguetown/trou
-	armor = /obj/item/clothing/suit/roguetown/armor/workervest
+	armor = /obj/item/clothing/suit/roguetown/armor/gambeson/light/striped
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/random
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	belt = /obj/item/storage/belt/rogue/leather
@@ -39,6 +39,7 @@
 		H.mind.adjust_skillrank(/datum/skill/craft/traps, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/craft/engineering, 4, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/craft/smelting, 6, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		H.change_stat("strength", 2)
 		H.change_stat("intelligence", 1)
 		H.change_stat("endurance", 1)

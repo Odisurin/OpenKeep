@@ -77,15 +77,39 @@
 /datum/status_effect/debuff/silver_curse
 	id = "silver_curse"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/silver_curse
-	duration = 5 SECONDS
-
-/datum/status_effect/debuff/silver_curse/greater
-	duration = 10 SECONDS
+	effectedstats = list("strength" = -2,"perception" = -2,"intelligence" = -2, "constitution" = -2, "endurance" = -2,"speed" = -2)
+	duration = 45 SECONDS
 
 /atom/movable/screen/alert/status_effect/debuff/silver_curse
 	name = "Silver Curse"
 	desc = "My BANE!"
 	icon_state = "hunger3"
+
+// PINTLEDESTRUCTION
+
+/datum/status_effect/debuff/pintledestruction
+	id = "pintlegone"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/pintledestruction
+	duration = 60 MINUTES
+
+/atom/movable/screen/alert/status_effect/debuff/pintledestruction
+	name = "Wine-Curse"
+	desc = "Oh Gods...it's dead..."
+	icon_state = "muscles"
+
+/datum/status_effect/debuff/pintledestruction/on_apply()
+	. = ..()
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		C.add_stress(/datum/stressevent/sadfate)
+	ADD_TRAIT(owner, TRAIT_LIMPDICK, TRAIT_GENERIC)
+
+/datum/status_effect/debuff/pintledestruction/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_LIMPDICK, TRAIT_GENERIC)
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		C.remove_stress(/datum/stressevent/sadfate)
 
 
 //BROKEN CELIBACY
@@ -303,8 +327,9 @@
 /datum/status_effect/debuff/netted
 	id = "net"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/netted
+	duration = 2 MINUTES
 	effectedstats = list("speed" = -5, "endurance" = -2)
-	
+
 /datum/status_effect/debuff/netted/on_apply()
 		. = ..()
 		var/mob/living/carbon/C = owner
@@ -348,6 +373,17 @@
 	desc = "<span class='warning'>I've pushed myself to my limit.</span>\n"
 	icon_state = "muscles"
 
+/datum/status_effect/debuff/revive
+	id = "revive"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/revive
+	duration = 15 MINUTES
+	effectedstats = list("strength" = -4, "speed" = -3, "endurance" = -3, "constitution" = -4)
+
+/atom/movable/screen/alert/status_effect/debuff/revive
+	name = "Revival Sickness"
+	desc = "<span class='warning'>I have returned from oblivion.. but the fatigue of death still affects me.</span>\n"
+	icon_state = "muscles"
+
 /datum/status_effect/debuff/viciousmockery
 	id = "viciousmockery"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/viciousmockery
@@ -358,3 +394,14 @@
 	name = "Vicious Mockery"
 	desc = "<span class='warning'>THAT SPOONY BARD! ARGH!</span>\n"
 	icon_state = "muscles"
+
+/datum/status_effect/debuff/chilled
+	id = "chilled"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/chilled
+	effectedstats = list("speed" = -5, "strength" = -2, "endurance" = -2)
+	duration = 15 SECONDS
+
+/atom/movable/screen/alert/status_effect/debuff/chilled
+	name = "Chilled"
+	desc = "I can barely feel my limbs!"
+	icon_state = "chilled"

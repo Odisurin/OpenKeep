@@ -3,7 +3,7 @@
 	set name = "Journey to the Underworld"
 	set category = "Spirit"
 
-	switch(alert("Begin the long walk in the underworld too your judgement....",,"Yes","No"))
+	switch(alert("Begin the long walk in the underworld to your judgement....",,"Yes","No"))
 		if("Yes")
 			if(istype(mob, /mob/living/carbon/human))
 				var/mob/living/carbon/human/D = mob
@@ -66,7 +66,7 @@
 	client.verbs -= /client/proc/descend
 	qdel(src)
 	return
-
+/*	Commented out. Resource intensive and not actually needed with the timer to put in hands and maze setup
 /proc/coin_upkeep()
 	if(length(GLOB.underworldcoins) >= 3)
 		return
@@ -76,7 +76,7 @@
 		new /obj/item/underworld/coin(spawn_loc)
 		if(length(GLOB.underworldcoins) >= 3)
 			break
-
+*/
 
 // shit that eventually will need moved elsewhere
 /obj/item/flashlight/lantern/shrunken
@@ -86,12 +86,13 @@
 	lefthand_file = 'icons/mob/inhands/equipment/mining_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	desc = "A beacon."
-	brightness_on = 2			// luminosity when on
+	light_outer_range = 2			// luminosity when on
+	light_color = LIGHT_COLOR_BLOOD_MAGIC
 
 /obj/item/flashlight/lantern/shrunken/update_brightness(mob/user = null)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		set_light(3, 20, LIGHT_COLOR_BLOOD_MAGIC)
+		set_light(3, 3, 20, l_color = LIGHT_COLOR_BLOOD_MAGIC)
 	else
 		icon_state = initial(icon_state)
 		set_light(0)
@@ -108,8 +109,8 @@
 	density = TRUE
 
 /obj/structure/underworld/carriageman/Initialize()
-	..()
-	set_light(5, 30, LIGHT_COLOR_BLUE)
+	. = ..()
+	set_light(5, 4, 30, l_color = LIGHT_COLOR_BLUE)
 
 /obj/structure/underworld/carriageman/attack_hand(mob/living/carbon/spirit/user)
 	if(!user.paid)
@@ -155,8 +156,8 @@
 
 
 /obj/structure/underworld/carriage/Initialize()
-	..()
-	set_light(5, 30, LIGHT_COLOR_BLUE)
+	. = ..()
+	set_light(5, 3, 30, l_color = LIGHT_COLOR_BLUE)
 
 /obj/structure/underworld/carriage/attack_hand(mob/living/carbon/spirit/user)
 	if(user.paid)
@@ -298,7 +299,7 @@
 
 /mob/living/simple_animal/hostile/rogue/demon/Initialize()
 	. = ..()
-	set_light(2, 2, "#c0523f")
+	set_light(2, 2, 2, l_color =  "#c0523f")
 	ADD_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
 
@@ -328,8 +329,8 @@
 	if(. && prob(8) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.Immobilize(50)
-		C.visible_message("<span class='danger'>\The [src] paralyzes \the [C] in fear!</span>", \
-				"<span class='danger'>\The [src] paralyzes me!</span>")
+		C.visible_message(span_danger("\The [src] paralyzes \the [C] in fear!"), \
+				span_danger("\The [src] paralyzes me!"))
 		emote("laugh")
 
 /obj/effect/landmark/underworldsafe/Crossed(atom/movable/AM, oldloc)

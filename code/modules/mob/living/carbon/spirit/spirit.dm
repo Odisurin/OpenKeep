@@ -40,7 +40,7 @@
 	icon_state = "spiritpart"
 
 /mob/living/carbon/spirit/Initialize(mapload, cubespawned=FALSE, mob/spawner)
-	coin_upkeep()
+//	coin_upkeep()	costly and not needed with the give_patron_toll failsafe if maze is drained
 	verbs += /mob/living/proc/mob_sleep
 	verbs += /mob/living/proc/lay_down
 	ADD_TRAIT(src, TRAIT_PACIFISM, "status effects")
@@ -53,7 +53,7 @@
 	var/L = new /obj/item/flashlight/lantern/shrunken(src.loc)
 	put_in_hands(L)
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_BAREFOOT, 1, 2)
-	addtimer(CALLBACK(src, PROC_REF(give_patron_toll)), 10 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(give_patron_toll)), 8 MINUTES)
 
 /mob/living/carbon/spirit/create_internal_organs()
 	internal_organs += new /obj/item/organ/lungs

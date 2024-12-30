@@ -58,7 +58,7 @@
 //Assassin's belt starts with their unique dagger, a vial of highly-deadly poison, and a lockpick.
 /obj/item/storage/belt/rogue/leather/assassin/PopulateContents()
 	new /obj/item/reagent_containers/glass/bottle/rogue/poison(src)
-	new /obj/item/rogueweapon/huntingknife/idagger/steel/profane(src)
+	new /obj/item/rogueweapon/knife/dagger/steel/profane(src)
 	new /obj/item/lockpick(src)
 
 //Bandit's belt starts with a simple needle and a key to their hideout.
@@ -66,19 +66,33 @@
 	new /obj/item/needle/thorn(src)
 	new /obj/item/roguekey/bandit(src)
 
-//Bandit's belt starts with a bandage and a key to their guildhall.
+//Mercs belt starts with a bandage and a key to their guildhall.
 /obj/item/storage/belt/rogue/leather/mercenary/PopulateContents()
 	new /obj/item/natural/cloth(src)
 	new /obj/item/roguekey/mercenary(src)
 
-/obj/item/storage/belt/rogue/leather/mercenary/shalal
+/obj/item/storage/belt/rogue/leather/merc_nokey/PopulateContents()
+	new /obj/item/natural/cloth (src)
+	new /obj/item/roguecoin/copper/pile (src)
+/obj/item/storage/belt/rogue/leather/merc_nokey/shalal
 	name = "shalal belt"
 	icon_state = "shalal"
-
-/obj/item/storage/belt/rogue/leather/mercenary/black
+/obj/item/storage/belt/rogue/leather/merc_nokey/black
 	name = "black belt"
 	icon_state = "blackbelt"
 
+/obj/item/storage/belt/rogue/leather/mason/PopulateContents()
+	new /obj/item/keyring/mason(src)
+
+/obj/item/storage/belt/rogue/leather/sheriff/PopulateContents()
+	new /obj/item/rogueweapon/knife/dagger/steel(src)
+	new /obj/item/needle/thorn(src)
+	new /obj/item/keyring/captain(src)
+
+/obj/item/storage/belt/rogue/leather/townwatch/PopulateContents()
+	new /obj/item/rogueweapon/knife/dagger(src)
+	new /obj/item/needle/thorn(src)
+	new /obj/item/keyring/guard(src)
 
 /obj/item/storage/belt/rogue/leather/plaquegold
 	name = "plaque belt"
@@ -116,6 +130,10 @@
 	color = "#b9a286"
 	heldz_items = 1
 
+/obj/item/storage/belt/rogue/leather/rope/apprentice
+	desc = "A rope dyed yellow serves as a belt for Makers Guilds apprentices."
+	color = "#ac9a15"
+
 /obj/item/storage/belt/rogue/leather/cloth
 	name = "cloth sash"
 	desc = "A simple cloth sash."
@@ -124,9 +142,23 @@
 
 /obj/item/storage/belt/rogue/leather/cloth/lady
 	color = "#575160"
+/obj/item/storage/belt/rogue/leather/cloth/lady/Initialize()
+	. = ..()
+	new /obj/item/needle(src)
 
-/obj/item/storage/belt/rogue/leather/cloth/bandit
-	color = "#ff0000"
+/obj/item/storage/belt/rogue/leather/cloth/tailor
+	color = "#756889"
+/obj/item/storage/belt/rogue/leather/cloth/tailor/Initialize()
+	. = ..()
+	new /obj/item/roguekey/tailor(src)
+	new /obj/item/rogueweapon/knife/dagger(src)
+	new /obj/item/needle(src)
+
+/obj/item/storage/belt/rogue/leather/nitemaster
+	color = "#cfabcb"
+/obj/item/storage/belt/rogue/leather/nitemaster/Initialize()
+	. = ..()
+	new /obj/item/roguecoin/copper/pile (src)
 
 /obj/item/storage/belt/rogue/pouch
 	name = "pouch"
@@ -215,6 +247,27 @@
 	new /obj/item/ammo_casing/caseless/rogue/bullet(src)
 	new /obj/item/ammo_casing/caseless/rogue/bullet(src)
 
+
+//Nitemaiden pouch
+/obj/item/storage/belt/rogue/pouch/nitemaiden/PopulateContents()
+	if(prob(50))
+		new /obj/item/paper/feldsher_certificate(src)
+	else
+		new /obj/item/paper/feldsher_certificate/expired(src)
+	new /obj/item/bath/soap(src)
+	new /obj/item/roguecoin/copper/pile(src)
+
+//Darts pouch
+/obj/item/storage/belt/rogue/pouch/blowgun/PopulateContents()
+	new /obj/item/ammo_casing/caseless/rogue/dart/poison(src)
+	new /obj/item/ammo_casing/caseless/rogue/dart/poison(src)
+	new /obj/item/ammo_casing/caseless/rogue/dart/poison(src)
+
+/obj/item/storage/belt/rogue/pouch/burglar/PopulateContents()
+	new /obj/item/roguecoin/copper/pile (src)
+	new /obj/item/lockpick (src)
+
+
 /obj/item/storage/backpack/rogue/satchel
 	name = "satchel"
 	desc = "A bulky bag worn over the shoulder which can be used to hold many things."
@@ -237,7 +290,7 @@
 
 
 /obj/item/storage/backpack/rogue/satchel/black
-	color = CLOTHING_BLACK
+	color = CLOTHING_SOOT_BLACK
 
 /obj/item/storage/backpack/rogue/satchel/ComponentInitialize()
 	. = ..()
